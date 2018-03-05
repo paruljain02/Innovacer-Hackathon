@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <script type="text/javascript">
+            localStorage.setItem("j",0);
+        </script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="icon" type="image/gif/png" href="assets/img/logo.png">	
+        <title>Expense Manager</title>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/css/animate.css">
+	    <link rel="stylesheet" href="assets/css/form-elements.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/media-queries.css">
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    </head>
+
+    <body>
+           
+        <!-- Loader -->
+    	<div class="loader">
+    		<div class="loader-img"></div>
+    	</div>
+
+		<!-- Top menu-->
+		<nav class="navbar navbar-inverse navbar-fixed-top navbar-no-bg" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div> 
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<a class="navbar-brand" href="index.html" style="text-decoration-color: #000000; "><strong><font size="5">Expense Manager</font></strong></a>
+				<div class="collapse navbar-collapse" id="top-navbar-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a class="scroll-link" href="#top-content">Log in</a></li>
+						<li><a class="scroll-link" href="#regis">Register</a></li>
+						<li><a class="scroll-link" href="#more-features">Features</a></li>
+						<li><a class="scroll-link" href="#contact">Contact Me</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+        <!-- Loginn-->
+        <div class="top-content">
+
+            <div class="inner-bg">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            <h1 class="wow fadeInLeftBig"><strong>WELCOME TO Expense Manager</strong></h1>
+                            <div class="description wow fadeInLeftBig">
+                            	<p>
+	                            	Manage you personal expenses easily
+                            	</p>
+                            </div>
+                            <div class="top-big-link wow fadeInUp">
+                          <form role="form" id="login" action="http://localhost:3000/login" method="post" class="login-form">
+                                          <div class="form-group">
+                                              <input type="text" style="background-color: rgba(0,0,0,0.1); color: #FFFFFF;" name="form-username" required="required" placeholder="Email/Mobile Number" class="form-username form-control" id="form-username">
+                                          </div>
+                                          <div class="form-group">
+                                              <input type="password" name="form-password" style="background-color: rgba(0,0,0,0.1);color: #FFFFFF;" required="required" placeholder="Enter your Password" class="form-password form-control" id="form-password" minlength="6">
+                                          </div>
+                                          <button type="submit" class="btn" onclick="Validate();">Sign in!</button>
+                                	<a class="btn btn-link-1 scroll-link" href="#features">Register</a>
+                                      </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+            
+
+            <script language="javascript" type="text/javascript">
+	         function Validate() {
+	            var name = document.getElementById("form-username").value;
+	            var paswrd = document.getElementById("form-password").value;
+	            if(name=='' || paswrd=='')
+	               {
+	                swal("OOPS", "Please fill all the fields", "error");
+	                return false;
+                   }
+                }
+                
+                $(document).ready(function(){
+                $('#login').submit(function(event) {
+
+                var data = {username: $('#form-username').val(),
+                            password: $('#form-password').val()
+                        };
+                console.log("Sending: "+data.username+"  "+data.password);
+
+                
+                $.ajax({    
+                    type: "POST",
+                    url: "http://localhost:3000/login",
+                    data: data,
+                    cache:false,
+                    dataType :'json',
+                    encode : true
+                }).done(function(data2) {
+                    if(data2==true)
+                    {
+                        localStorage.setItem("k",data.username);
+                        localStorage.setItem("j",1);
+                        window.location.href = "./login.html";
+                        alert("login successfully");
+                    }
+                    else
+                    {
+                        swal("OOPS", "Invalid username or password make sure you have registered", "error");
+                    }
+                    
+                 });
+                event.preventDefault();
+
+	            });
+	        });
+
+          </script>
+
+
+        <!-- Register yourself -->
+        <div class="regis-container section-container">
+	        
+
+             <div class="container">
+                    
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        
+                        
+                        <div class="col-sm-4"></div>
+                            
+                        <div class="col-sm-5">
+                            
+                            <div class="form-box">
+                                <div class="form-top">
+                                    <div class="form-top-left">
+                                        <h2><strong>Sign up</strong> now</h2>
+                                        <div class="divider-1 wow fadeInUp"><span></span></div>
+                                        <p>Fill in the form below to get instant access:</p>
+                                    </div>
+                                    <div class="form-top-right">
+                                        <i class="fa fa-pencil"></i>
+                                    </div>
+                                </div>
+                                <div class="form-bottom">
+                                    <form role="form" id="register" action="http://localhost:3000/signUp" method="post" class="registration-form">
+                                        <div class="form-group">
+                                            <input type="text" name="form-first-name" required="required" placeholder="Name" class="form-first-name form-control" id="form-first-name">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="form-last-name" required="required" placeholder="Mobile #" class="form-last-name form-control" id="form-last-name" minlength="10" maxlength="10">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" name="form-email" required="required" placeholder="Email" class="form-email form-control" id="form-email">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" name="form-password" placeholder="Password" class="form-password form-control" 
+                                            id="form-pasword" required="required">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" name="form-password" required="required" placeholder="Confirm Password" class="form-password form-control" id="confirm-password" >
+                                        </div>
+                                         <input type="checkbox" name="TnC" value="TnC" required "> Terms and Condition<br>
+                                        <button type="submit" class="btn" id="signup" onclick="return Validate_pwd();"  >Sign me up!</button>
+                                    </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+
+        </div>
+
+
+          <script type="text/javascript">
+           function Validate_pwd() {
+        var password = document.getElementById("form-pasword").value;
+        console.log(password);
+        var confirmPassword = document.getElementById("confirm-password").value;
+        console.log(confirmPassword);
+        if (password != confirmPassword) {
+            swal("OOPS", "Password do not match", "error");
+            return false;
+        }
+        return true;
+    }
+
+
+
+            $(document).ready(function(){
+                $('#register').submit(function(event) {
+
+                var data2 = {first_name: $('#form-first-name').val(),
+                            last_name: $('#form-last-name').val(),
+                            email: $('#form-email').val(),
+                            password: $('#form-pasword').val()
+                        };
+                console.log("Sending: "+data2.First_name+"  "+data2.password+"  "+data2.email+"  "+data2.password);
+
+                $.ajax({    
+                    type: "post",
+                    url: "http://localhost:3000/signUp",
+                    data: data2,
+                    cache:false,
+                    dataType :'json',
+                    encode : true
+                }).done(function(data2) {
+                    window.location.href = "./index.html";
+                    console.log(data2);
+                 });
+                alert("Registered Successfully...");
+                window.location.href = "./login.html";
+                event.preventDefault();
+
+                });
+            });
+
+
+
+           </script>
+
+        <!-- More features -->
+        <div class="more-features-container section-container section-container-gray-bg">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-sm-12 more-features section-description wow fadeIn">
+	                    <h2><strong>More</strong> features</h2>
+	                    <div class="divider-1 wow fadeInUp"><span></span></div>
+	                </div>
+	            </div>
+	            <div class="row">
+	            	<div class="col-sm-5 more-features-box wow fadeInLeft">
+	                    <img src="assets/img/devices/manage.png" alt="">
+	                </div>
+	                <div class="col-sm-7 more-features-box wow fadeInUp">
+
+	                    <div class="more-features-box-text">
+	                    	<div class="more-features-box-text-icon">
+	                    		<i class="fa fa-paperclip"></i>
+	                    	</div>
+	                    	<h3>We do the math for you</h3>
+	                    	<div class="more-features-box-text-description">
+	                    		You can add your expenses on various items.
+                                Expenses manager gives you the total of your expenditure.
+	                    	</div>
+	                    </div>
+	                    <div class="more-features-box-text">
+	                    	<div class="more-features-box-text-icon">
+	                    		<i class="fa fa-user"></i>
+	                    	</div>
+	                    	<h3>We’re fairness experts</h3>
+	                    	<div class="more-features-box-text-description">
+	                    		How should we spend our salary? What item is taking up the most and can be reduced? Participate in cool fairness research and get advice on all sorts of expenditure problems.
+	                    	</div>
+	                    </div>
+	                    
+	                    <div class="more-features-box-text">
+	                    	<div class="more-features-box-text-icon">
+	                    		<i class="fa fa-twitter"></i>
+	                    	</div>
+	                    	<h3>Simplify the View</h3>
+	                    	<div class="more-features-box-text-description">
+	                    		See the summary of what you have spend using the summary chart for all the outstanding expenses.
+	                    	</div>
+	                    </div>
+
+	                </div>
+	            </div>
+	        </div>
+        </div>
+
+
+        <!-- Contacttt -->
+         <div class="contact-container section-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 contact section-description  ">
+                        <h2><strong>Contact</strong> Me</h2>
+                        <div class="divider-1 wow fadeInUp"><span></span></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 contact-box wow fadeInUp">
+                        <div class="contact-photo">
+                            <img src="assets/img/about/3.jpg" alt="" data-at2x="assets/img/about/3.jpg">
+                        </div>
+                        <h3>Parul Jain</h3>
+                        <p><br>Parul.jain@students.iiit.ac.in</p>
+                        <div class="contact-social">
+                            <a href="https://www.facebook.com/profile.php?id=100020694223355"><i class="fa fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+	        <div class="container">
+	        	<div class="row">
+                    <div class="col-sm-12 footer-social">
+                    	<blockquote>SPEND MONEY <br>
+                        BUT TAKE CARE OF YOUR SAVINGS.<br><cite ">-PARUL JAIN</cite></blockquote>
+                    </div>
+	            </div>
+	            <div class="row">
+                    <div class="col-sm-12 footer-copyright">
+                    	&copy; IIIT-H <a href="index.html">Home</a>.
+                    </div>
+                </div>
+	        </div>
+        </footer>
+
+
+        <!-- Javascript -->
+        <script src="assets/js/jquery-1.11.1.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/wow.min.js"></script>
+        <script src="assets/js/retina-1.1.0.min.js"></script>
+        <script src="assets/js/waypoints.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
+
+    </body>
+
+</html>
